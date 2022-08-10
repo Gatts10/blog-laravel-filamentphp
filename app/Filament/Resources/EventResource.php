@@ -1,30 +1,32 @@
 <?php
 
-namespace App\Filament\Resources\TagResource\RelationManagers;
+namespace App\Filament\Resources;
 
 use Closure;
 use Filament\Forms;
 use Filament\Tables;
+use App\Models\Event;
 use Illuminate\Support\Str;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
+use Filament\Resources\Resource;
 use Filament\Forms\Components\Card;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Toggle;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\RichEditor;
 use Illuminate\Database\Eloquent\Builder;
-use Filament\Tables\Columns\BooleanColumn;
+use App\Filament\Resources\EventResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Filament\Resources\RelationManagers\RelationManager;
+use App\Filament\Resources\EventResource\RelationManagers;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use App\Filament\Resources\EventResource\RelationManagers\PostsRelationManager;
 
-class PostsRelationManager extends RelationManager
+class EventResource extends Resource
 {
-    protected static string $relationship = 'posts';
+    protected static ?string $model = Event::class;
+    protected static ?string $recordTitleAttribute = 'name';
 
-    protected static ?string $recordTitleAttribute = 'title';
+    protected static ?string $navigationIcon = 'heroicon-o-calendar';
+    protected static ?string $navigationGroup = 'Events';
 
     public static function form(Form $form): Form
     {
@@ -32,19 +34,13 @@ class PostsRelationManager extends RelationManager
             ->schema([
                 Card::make()
                     ->schema([
-                        Select::make('category_id')
-                            ->relationship('category', 'name'),
-                        Select::make('event_id')
-                            ->relationship('event', 'name'),
-                        TextInput::make('title')
+                        TextInput::make('name')
                             ->reactive()
                             ->afterStateUpdated(function (Closure $set, $state) {
                                 $set('slug', Str::slug($state));
                             })->required(),
                         TextInput::make('slug')->required(),
-                        SpatieMediaLibraryFileUpload::make('thumbnail')->collection('posts'),
-                        RichEditor::make('content'),
-                        Toggle::make('is_published')
+                        SpatieMediaLibraryFileUpload::make('image')->multiple()->collection('events')
                     ])
             ]);
     }
@@ -54,21 +50,33 @@ class PostsRelationManager extends RelationManager
         return $table
             ->columns([
                 TextColumn::make('id')->sortable(),
-                TextColumn::make('title')->limit(50)->sortable(),
-                BooleanColumn::make('is_published')
+                TextColumn::make('name')->limit(50)->sortable()->searchable(),
+                TextColumn::make('slug')->limit(50)
             ])
             ->filters([
                 //
             ])
-            ->headerActions([
-                Tables\Actions\CreateAction::make(),
-            ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                // Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            PostsRelationManager::class
+        ];
+    }
+
+    public static function getPages(): array
+    {
+        return [
+            'index' => Pages\ListEvents::route('/'),
+            'create' => Pages\CreateEvent::route('/create'),
+            'edit' => Pages\EditEvent::route('/{record}/edit'),
+        ];
     }
 }

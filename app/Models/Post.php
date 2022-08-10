@@ -11,7 +11,7 @@ class Post extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
 
-    protected $fillable = ['category_id', 'title', 'slug', 'content', 'is_published'];
+    protected $fillable = ['category_id', 'event_id', 'title', 'slug', 'content', 'is_published'];
 
     protected $casts = [
         'is_published' => 'boolean',
@@ -25,5 +25,10 @@ class Post extends Model implements HasMedia
     public function tags()
     {
         return $this->belongsToMany(Tag::class);
+    }
+
+    public function event()
+    {
+        return $this->belongsTo(Event::class);
     }
 }

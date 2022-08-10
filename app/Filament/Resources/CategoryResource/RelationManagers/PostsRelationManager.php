@@ -34,6 +34,8 @@ class PostsRelationManager extends RelationManager
                     ->schema([
                         Select::make('category_id')
                             ->relationship('category', 'name'),
+                        Select::make('event_id')
+                            ->relationship('event', 'name'),
                         TextInput::make('title')
                             ->reactive()
                             ->afterStateUpdated(function (Closure $set, $state) {

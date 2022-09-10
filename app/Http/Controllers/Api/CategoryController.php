@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\CategoryResource;
+use App\Http\Resources\CategoryListResource;
 
 class CategoryController extends Controller
 {
@@ -18,7 +18,7 @@ class CategoryController extends Controller
     {
         $categories = Category::orderBy('name')->get();
 
-        return response()->json(CategoryResource::collection($categories));
+        return response()->json(CategoryListResource::collection($categories));
     }
 
     /**
@@ -42,7 +42,7 @@ class CategoryController extends Controller
     {
         $category = Category::find($id);
 
-        return response()->json(new CategoryResource($category));
+        return response()->json(new CategoryListResource($category));
     }
 
     /**

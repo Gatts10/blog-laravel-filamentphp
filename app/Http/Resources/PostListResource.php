@@ -3,9 +3,10 @@
 namespace App\Http\Resources;
 
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PostResource extends JsonResource
+class PostListResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -25,17 +26,10 @@ class PostResource extends JsonResource
                 'name' => $this->category->name,
                 'slug' => $this->category->slug,
             ],
-            'event_id' => $this->event_id,
-            'event' => [
-                'name' => $this->event->name ?? null,
-                'slug' => $this->event->slug ?? null,
-            ],
             'title' => $this->title,
             'slug' => $this->slug,
             'thumbnail' => $this->getFirstMediaUrl('posts'),
-            'content' => $this->content,
-            'is_published' => $this->is_published,
-            'tags' => $this->tags,
+            'content' => Str::limit($this->content, 125, '...'),
             'created_at' => $this->created_at->diffForHumans()
         ];
     }

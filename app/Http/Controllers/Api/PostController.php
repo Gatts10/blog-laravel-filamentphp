@@ -6,6 +6,7 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PostResource;
+use App\Http\Resources\PostListResource;
 
 class PostController extends Controller
 {
@@ -18,7 +19,7 @@ class PostController extends Controller
     {
         $posts = Post::all();
 
-        return response()->json(PostResource::collection($posts));
+        return response()->json(PostListResource::collection($posts));
     }
 
     /**

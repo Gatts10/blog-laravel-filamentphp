@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Tag;
 use Illuminate\Http\Request;
-use App\Http\Resources\TagResource;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\TagListResource;
 
 class TagController extends Controller
 {
@@ -18,7 +18,7 @@ class TagController extends Controller
     {
         $tags = Tag::orderBy('name')->get();
 
-        return response()->json(TagResource::collection($tags));
+        return response()->json(TagListResource::collection($tags));
     }
 
     /**
@@ -42,7 +42,7 @@ class TagController extends Controller
     {
         $tag = Tag::find($id);
 
-        return response()->json(new TagResource($tag));
+        return response()->json(new TagListResource($tag));
     }
 
     /**

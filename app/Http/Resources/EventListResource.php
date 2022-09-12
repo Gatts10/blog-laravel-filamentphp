@@ -24,6 +24,7 @@ class EventListResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'slug' => $this->slug,
+            'published_at' => $this->published_at,
             'image' => $images
         ];
     }

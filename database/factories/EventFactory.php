@@ -26,6 +26,7 @@ class EventFactory extends Factory
         return [
             'name' => $name,
             'slug' => Str::slug($name),
+            'published_at' => $this->faker->dateTimeThisMonth(),
         ];
     }
 
@@ -33,9 +34,9 @@ class EventFactory extends Factory
     {
         return $this->afterCreating(function (Event $item) {
             $images = $this->faker->randomElement(array(2, 5));
-            
+
             for ($i = 0; $i < $images; $i++) {
-                $url = 'https://source.unsplash.com/random/1200x800';
+                $url = 'https://source.unsplash.com/1200x800/?nature,water';
                 $item
                     ->addMediaFromUrl($url)
                     ->toMediaCollection('events');

@@ -29,8 +29,7 @@ class PostListResource extends JsonResource
             'title' => $this->title,
             'slug' => $this->slug,
             'thumbnail' => $this->getFirstMediaUrl('posts'),
-            'content' => Str::limit($this->content, 125, '...'),
-            'created_at' => $this->created_at->diffForHumans()
+            'content' => Str::limit($this->content, 125, '...')
         ];
     }
 }

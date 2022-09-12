@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug')->unique;
             $table->text('content');
+            $table->datetime('published_at');
             $table->boolean('is_published')->default(false);
             $table->timestamps();
         });

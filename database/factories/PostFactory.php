@@ -31,6 +31,7 @@ class PostFactory extends Factory
             'title' => $title,
             'slug' => Str::slug($title),
             'content' => $this->faker->paragraph(3),
+            'published_at' => $this->faker->dateTimeThisMonth(),
             'is_published' => $this->faker->boolean(50),
         ];
     }
@@ -38,7 +39,7 @@ class PostFactory extends Factory
     public function configure()
     {
         return $this->afterCreating(function (Post $item) {
-            $url = 'https://source.unsplash.com/random/1200x800';
+            $url = 'https://source.unsplash.com/1200x800/?nature,water';
             $item
                 ->addMediaFromUrl($url)
                 ->toMediaCollection('posts');

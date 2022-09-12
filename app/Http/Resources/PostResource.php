@@ -34,9 +34,7 @@ class PostResource extends JsonResource
             'slug' => $this->slug,
             'thumbnail' => $this->getFirstMediaUrl('posts'),
             'content' => $this->content,
-            'is_published' => $this->is_published,
-            'tags' => $this->tags,
-            'created_at' => $this->created_at->diffForHumans()
+            'tags' => $this->tags
         ];
     }
 }

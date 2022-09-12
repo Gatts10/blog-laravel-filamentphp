@@ -11,7 +11,7 @@ class Event extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
 
-    protected $fillable = ['name', 'slug'];
+    protected $fillable = ['name', 'slug', 'published_at'];
 
     public function posts()
     {

@@ -20,13 +20,14 @@ use Filament\Forms\Components\RichEditor;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables\Columns\BooleanColumn;
+use Filament\Forms\Components\DateTimePicker;
 use App\Filament\Resources\PostResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\PostResource\RelationManagers;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
-use App\Filament\Resources\PostResource\RelationManagers\TagsRelationManager;
 use App\Filament\Resources\PostResource\Widgets\StatsOverview;
+use App\Filament\Resources\PostResource\RelationManagers\TagsRelationManager;
 
 class PostResource extends Resource
 {
@@ -54,7 +55,8 @@ class PostResource extends Resource
                         TextInput::make('slug')->required(),
                         SpatieMediaLibraryFileUpload::make('thumbnail')->collection('posts'),
                         RichEditor::make('content'),
-                        Toggle::make('is_published')
+                        DateTimePicker::make('published_at'),
+                        Toggle::make('is_published')->inline(false)
                     ])
             ]);
     }
@@ -68,7 +70,7 @@ class PostResource extends Resource
                 TextColumn::make('slug')->limit(50),
                 SpatieMediaLibraryImageColumn::make('thumbnail')->collection('posts'),
                 BooleanColumn::make('is_published')
-            ])
+            ])->defaultSort('id', 'desc')
             ->filters([
                 Filter::make('Published')
                     ->query(fn (Builder $query): Builder => $query->where('is_published', true)),

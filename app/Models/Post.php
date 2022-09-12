@@ -11,7 +11,7 @@ class Post extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
 
-    protected $fillable = ['category_id', 'event_id', 'title', 'slug', 'content', 'is_published'];
+    protected $fillable = ['category_id', 'event_id', 'title', 'slug', 'content', 'published_at', 'is_published'];
 
     protected $casts = [
         'is_published' => 'boolean',

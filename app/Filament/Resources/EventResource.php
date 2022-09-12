@@ -14,6 +14,7 @@ use Filament\Forms\Components\Card;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Forms\Components\DateTimePicker;
 use App\Filament\Resources\EventResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\EventResource\RelationManagers;
@@ -40,7 +41,8 @@ class EventResource extends Resource
                                 $set('slug', Str::slug($state));
                             })->required(),
                         TextInput::make('slug')->required(),
-                        SpatieMediaLibraryFileUpload::make('image')->multiple()->collection('events')
+                        SpatieMediaLibraryFileUpload::make('image')->multiple()->collection('events'),
+                        DateTimePicker::make('published_at')
                     ])
             ]);
     }
@@ -52,7 +54,7 @@ class EventResource extends Resource
                 TextColumn::make('id')->sortable(),
                 TextColumn::make('name')->limit(50)->sortable()->searchable(),
                 TextColumn::make('slug')->limit(50)
-            ])
+            ])->defaultSort('id', 'desc')
             ->filters([
                 //
             ])

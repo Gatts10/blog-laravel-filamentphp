@@ -16,6 +16,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\RichEditor;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables\Columns\BooleanColumn;
+use Filament\Forms\Components\DateTimePicker;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
@@ -44,7 +45,8 @@ class PostsRelationManager extends RelationManager
                         TextInput::make('slug')->required(),
                         SpatieMediaLibraryFileUpload::make('thumbnail')->collection('posts'),
                         RichEditor::make('content'),
-                        Toggle::make('is_published')
+                        DateTimePicker::make('published_at'),
+                        Toggle::make('is_published')->inline(false)
                     ])
             ]);
     }

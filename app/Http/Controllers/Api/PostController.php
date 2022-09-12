@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\PostResource;
 use App\Http\Resources\PostListResource;
 
+use function PHPUnit\Framework\isEmpty;
+
 class PostController extends Controller
 {
     /**
@@ -15,9 +17,15 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::all();
+        $category = $request->input('category');
+
+        if ($category === null) {
+            $posts = Post::all();
+        } else {
+            $posts = Post::where('category_id', $category)->get();
+        }
 
         return response()->json(PostListResource::collection($posts));
     }

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug')->unique;
+            $table->date('date');
             $table->datetime('published_at');
             $table->timestamps();
         });

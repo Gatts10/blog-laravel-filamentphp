@@ -26,10 +26,10 @@ class DatabaseSeeder extends Seeder
             'email' => 'orlando.carvalho31@gmail.com',
         ]);
 
-        Category::factory(5)->create();
-        Event::factory(5)->create();
+        Category::factory(6)->create();
+        Event::factory(6)->create();
 
-        $posts = Post::factory(10)->create();
+        $posts = Post::factory(18)->create();
         $tags = Tag::factory(10)->create();
         $posts->each(function (Post $posts) use ($tags) {
             $posts->tags()->attach(

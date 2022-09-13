@@ -17,6 +17,10 @@ class Post extends Model implements HasMedia
         'is_published' => 'boolean',
     ];
 
+    protected $dates = [
+        'published_at',
+    ];
+
     public function category()
     {
         return $this->belongsTo(Category::class);

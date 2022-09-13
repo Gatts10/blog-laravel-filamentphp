@@ -30,8 +30,8 @@ class PostFactory extends Factory
             'event_id' => $this->faker->optional()->randomElement(Event::all()->pluck('id')),
             'title' => $title,
             'slug' => Str::slug($title),
-            'content' => $this->faker->paragraph(3),
-            'published_at' => $this->faker->dateTimeThisMonth(),
+            'content' => $this->faker->paragraph(10),
+            'published_at' => $this->faker->unique()->dateTimeThisYear(),
             'is_published' => $this->faker->boolean(50),
         ];
     }

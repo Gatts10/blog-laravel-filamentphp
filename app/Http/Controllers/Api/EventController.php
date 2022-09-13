@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\EventResource;
 use App\Http\Resources\EventListResource;
 
 class EventController extends Controller
@@ -42,7 +43,7 @@ class EventController extends Controller
     {
         $event = Event::find($id);
 
-        return response()->json(new EventListResource($event));
+        return response()->json(new EventResource($event));
     }
 
     /**

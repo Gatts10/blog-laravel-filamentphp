@@ -26,7 +26,8 @@ class EventFactory extends Factory
         return [
             'name' => $name,
             'slug' => Str::slug($name),
-            'published_at' => $this->faker->dateTimeThisMonth(),
+            'date' => $this->faker->unique()->dateTimeBetween($startDate = '-1 years', $endDate = 'now'),
+            'published_at' => $this->faker->unique()->dateTimeThisYear(),
         ];
     }
 

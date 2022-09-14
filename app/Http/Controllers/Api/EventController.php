@@ -17,9 +17,9 @@ class EventController extends Controller
      */
     public function index()
     {
-        $events = Event::all();
+        $events = Event::paginate(6);
 
-        return response()->json(EventListResource::collection($events));
+        return EventListResource::collection($events);
     }
 
     /**

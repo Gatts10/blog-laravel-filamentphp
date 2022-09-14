@@ -22,12 +22,12 @@ class PostController extends Controller
         $category = $request->input('category');
 
         if ($category === null) {
-            $posts = Post::all();
+            $posts = Post::paginate(6);
         } else {
-            $posts = Post::where('category_id', $category)->get();
+            $posts = Post::where('category_id', $category)->paginate(6);
         }
 
-        return response()->json(PostListResource::collection($posts));
+        return PostListResource::collection($posts);
     }
 
     /**

@@ -26,8 +26,8 @@ class DatabaseSeeder extends Seeder
             'email' => 'orlando.carvalho31@gmail.com',
         ]);
 
-        Category::factory(6)->create();
-        Event::factory(6)->create();
+        Category::factory(10)->create();
+        Event::factory(12)->create();
 
         $posts = Post::factory(18)->create();
         $tags = Tag::factory(10)->create();

@@ -8,8 +8,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\PostResource;
 use App\Http\Resources\PostListResource;
 
-use function PHPUnit\Framework\isEmpty;
-
 class PostController extends Controller
 {
     /**

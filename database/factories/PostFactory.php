@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Post;
+use App\Models\User;
 use App\Models\Event;
 use App\Models\Category;
 use Illuminate\Support\Str;
@@ -28,6 +29,7 @@ class PostFactory extends Factory
         return [
             'category_id' => Category::all()->random()->id,
             'event_id' => $this->faker->optional()->randomElement(Event::all()->pluck('id')),
+            'user_id' => User::all()->random()->id,
             'title' => $title,
             'slug' => Str::slug($title),
             'content' => $this->faker->paragraph(10),

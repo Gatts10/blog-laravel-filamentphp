@@ -44,9 +44,11 @@ class PostResource extends Resource
                 Card::make()
                     ->schema([
                         Select::make('category_id')
-                            ->relationship('category', 'name'),
+                            ->relationship('category', 'name')->required(),
                         Select::make('event_id')
                             ->relationship('event', 'name'),
+                        Select::make('user_id')
+                            ->relationship('user', 'name')->label('Author')->required(),
                         TextInput::make('title')
                             ->reactive()
                             ->afterStateUpdated(function (Closure $set, $state) {
@@ -54,8 +56,8 @@ class PostResource extends Resource
                             })->required(),
                         TextInput::make('slug')->required(),
                         SpatieMediaLibraryFileUpload::make('thumbnail')->collection('posts'),
-                        RichEditor::make('content'),
-                        DateTimePicker::make('published_at'),
+                        RichEditor::make('content')->required(),
+                        DateTimePicker::make('published_at')->required(),
                         Toggle::make('is_published')->inline(false)
                     ])
             ]);
@@ -68,6 +70,7 @@ class PostResource extends Resource
                 TextColumn::make('id')->sortable(),
                 TextColumn::make('title')->limit(50)->sortable()->searchable(),
                 TextColumn::make('slug')->limit(50),
+                TextColumn::make('user.name')->label('Author')->limit(50),
                 SpatieMediaLibraryImageColumn::make('thumbnail')->collection('posts'),
                 BooleanColumn::make('is_published')
             ])->defaultSort('id', 'desc')
@@ -77,7 +80,8 @@ class PostResource extends Resource
                 Filter::make('Unpublished')
                     ->query(fn (Builder $query): Builder => $query->where('is_published', false)),
                 SelectFilter::make('category')->relationship('category', 'name'),
-                SelectFilter::make('event')->relationship('event', 'name')
+                SelectFilter::make('event')->relationship('event', 'name'),
+                SelectFilter::make('user')->relationship('user', 'name')
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -108,5 +112,10 @@ class PostResource extends Resource
             'create' => Pages\CreatePost::route('/create'),
             'edit' => Pages\EditPost::route('/{record}/edit'),
         ];
+    }
+
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['title', 'category.name', 'event.name', 'user.name', 'tags.name'];
     }
 }

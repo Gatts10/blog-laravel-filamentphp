@@ -30,6 +30,10 @@ class PostResource extends JsonResource
                 'name' => $this->event->name ?? null,
                 'slug' => $this->event->slug ?? null,
             ],
+            'user_id' => $this->user_id,
+            'user' => [
+                'name' => $this->user->name,
+            ],
             'title' => $this->title,
             'slug' => $this->slug,
             'thumbnail' => $this->getFirstMediaUrl('posts'),

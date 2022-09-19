@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use Carbon\Carbon;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -17,9 +18,12 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
+        $time = Carbon::now();
+
         $category = $request->input('category');
 
         if ($category === null) {
+            // $posts = Post::where('published_at', '<=', $time)->where('is_published', true)->paginate(6);
             $posts = Post::paginate(6);
         } else {
             $posts = Post::where('category_id', $category)->paginate(6);

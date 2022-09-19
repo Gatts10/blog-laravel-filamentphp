@@ -42,9 +42,9 @@ class EventResource extends Resource
                                 $set('slug', Str::slug($state));
                             })->required(),
                         TextInput::make('slug')->required(),
-                        DatePicker::make('date'),
-                        SpatieMediaLibraryFileUpload::make('image')->multiple()->collection('events'),
-                        DateTimePicker::make('published_at')
+                        DatePicker::make('date')->required(),
+                        SpatieMediaLibraryFileUpload::make('images')->multiple()->collection('events')->required(),
+                        DateTimePicker::make('published_at')->required()
                     ])
             ]);
     }

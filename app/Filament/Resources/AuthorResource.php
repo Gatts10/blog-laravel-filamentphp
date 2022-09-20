@@ -15,17 +15,20 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Resources\Pages\CreateRecord;
-use App\Filament\Resources\UserResource\Pages;
+use App\Filament\Resources\AuthorResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\UserResource\RelationManagers;
+use App\Filament\Resources\AuthorResource\RelationManagers;
 
-class UserResource extends Resource
+class AuthorResource extends Resource
 {
     protected static ?string $model = User::class;
     protected static ?string $recordTitleAttribute = 'name';
 
     protected static ?string $navigationIcon = 'heroicon-o-users';
-    protected static ?string $navigationGroup = 'Users';
+    protected static ?string $navigationGroup = 'Authors';
+    protected static ?string $label = 'Author';
+    
+    protected static ?int $navigationSort = 5;
 
     public static function form(Form $form): Form
     {
@@ -47,8 +50,7 @@ class UserResource extends Resource
             ->columns([
                 TextColumn::make('id')->sortable(),
                 TextColumn::make('name')->sortable()->searchable(),
-                TextColumn::make('email')->searchable(),
-                TextColumn::make('create_at')->datetime()
+                TextColumn::make('email')->searchable()
             ])
             ->filters([
                 //
@@ -71,9 +73,9 @@ class UserResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListUsers::route('/'),
-            'create' => Pages\CreateUser::route('/create'),
-            'edit' => Pages\EditUser::route('/{record}/edit'),
+            'index' => Pages\ListAuthors::route('/'),
+            'create' => Pages\CreateAuthor::route('/create'),
+            'edit' => Pages\EditAuthor::route('/{record}/edit'),
         ];
     }
 }

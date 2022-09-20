@@ -23,8 +23,8 @@ class PostController extends Controller
         $category = $request->input('category');
 
         if ($category === null) {
-            // $posts = Post::where('published_at', '<=', $time)->where('is_published', true)->paginate(6);
-            $posts = Post::paginate(6);
+            // $posts = Post::where('published_at', '<=', $time)->where('is_published', true)->orderBy('published_at', 'desc')->paginate(6);
+            $posts = Post::orderBy('published_at', 'desc')->paginate(6);
         } else {
             $posts = Post::where('category_id', $category)->paginate(6);
         }

@@ -11,7 +11,7 @@ class Comment extends Model
 
     protected $fillable = ['post_id', 'parent_id', 'name', 'email', 'body'];
 
-    public function posts()
+    public function post()
     {
         return $this->belongsTo(Post::class);
     }

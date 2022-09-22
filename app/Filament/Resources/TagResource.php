@@ -52,7 +52,7 @@ class TagResource extends Resource
                 TextColumn::make('id')->sortable(),
                 TextColumn::make('name')->limit(50)->sortable()->searchable(),
                 TextColumn::make('slug')->limit(50)
-            ])->defaultSort('id', 'desc')
+            ])
             ->filters([
                 //
             ])

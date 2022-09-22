@@ -28,6 +28,7 @@ use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use App\Filament\Resources\PostResource\Widgets\StatsOverview;
 use App\Filament\Resources\PostResource\RelationManagers\TagsRelationManager;
+use App\Filament\Resources\PostResource\RelationManagers\CommentsRelationManager;
 
 class PostResource extends Resource
 {
@@ -96,7 +97,8 @@ class PostResource extends Resource
     public static function getRelations(): array
     {
         return [
-            TagsRelationManager::class
+            TagsRelationManager::class,
+            CommentsRelationManager::class
         ];
     }
 

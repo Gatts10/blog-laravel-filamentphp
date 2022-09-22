@@ -24,17 +24,17 @@ class PostFactory extends Factory
 
     public function definition()
     {
-        $title = ucwords($this->faker->unique()->word);
+        $title = ucwords(fake()->unique()->word);
 
         return [
             'category_id' => Category::all()->random()->id,
-            'event_id' => $this->faker->optional()->randomElement(Event::all()->pluck('id')),
+            'event_id' => fake()->optional()->randomElement(Event::all()->pluck('id')),
             'user_id' => User::all()->random()->id,
             'title' => $title,
             'slug' => Str::slug($title),
-            'content' => $this->faker->paragraph(10),
-            'published_at' => $this->faker->unique()->dateTimeThisYear(),
-            'is_published' => $this->faker->boolean(50),
+            'content' => fake()->paragraph(10),
+            'published_at' => fake()->unique()->dateTimeThisYear(),
+            'is_published' => fake()->boolean(50),
         ];
     }
 

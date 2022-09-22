@@ -21,20 +21,20 @@ class EventFactory extends Factory
 
     public function definition()
     {
-        $name = ucwords($this->faker->unique()->word);
+        $name = ucwords(fake()->unique()->word);
 
         return [
             'name' => $name,
             'slug' => Str::slug($name),
-            'date' => $this->faker->unique()->dateTimeBetween($startDate = '-1 years', $endDate = 'now'),
-            'published_at' => $this->faker->unique()->dateTimeThisYear(),
+            'date' => fake()->unique()->dateTimeBetween($startDate = '-1 years', $endDate = 'now'),
+            'published_at' => fake()->unique()->dateTimeThisYear(),
         ];
     }
 
     public function configure()
     {
         return $this->afterCreating(function (Event $item) {
-            $images = $this->faker->randomElement(array(2, 5));
+            $images = fake()->randomElement(array(2, 5));
 
             for ($i = 0; $i < $images; $i++) {
                 $url = 'https://source.unsplash.com/1200x800/?nature,water';

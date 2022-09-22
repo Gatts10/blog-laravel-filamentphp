@@ -20,18 +20,15 @@ class PostResource extends JsonResource
 
         return [
             'id' => $this->id,
-            'category_id' => $this->category_id,
             'category' => [
                 'name' => $this->category->name,
                 'slug' => $this->category->slug,
             ],
-            'event_id' => $this->event_id,
             'event' => [
                 'name' => $this->event->name ?? null,
                 'slug' => $this->event->slug ?? null,
             ],
-            'user_id' => $this->user_id,
-            'user' => [
+            'author' => [
                 'name' => $this->user->name,
             ],
             'title' => $this->title,
@@ -39,7 +36,8 @@ class PostResource extends JsonResource
             'thumbnail' => $this->getFirstMediaUrl('posts'),
             'content' => $this->content,
             'published_at' => $this->published_at->diffForHumans(),
-            'tags' => $this->tags
+            'tags' => $this->tags,
+            'comments' => $this->comments
         ];
     }
 }

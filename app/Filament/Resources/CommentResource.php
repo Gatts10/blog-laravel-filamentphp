@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\CommentResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\CommentResource\RelationManagers;
+use App\Filament\Resources\CommentResource\Widgets\StatsOverview;
 
 class CommentResource extends Resource
 {
@@ -58,6 +59,13 @@ class CommentResource extends Resource
     {
         return [
             //
+        ];
+    }
+
+    public static function getWidgets(): array
+    {
+        return [
+            StatsOverview::class
         ];
     }
 

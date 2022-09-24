@@ -23,6 +23,7 @@ class CommentFactory extends Factory
             'name' => fake()->name(),
             'email' => fake()->safeEmail(),
             'body' => fake()->sentence($nbWords = 6, $variableNbWords = true),
+            'created_at' => fake()->unique()->dateTimeThisMonth(),
         ];
     }
 }

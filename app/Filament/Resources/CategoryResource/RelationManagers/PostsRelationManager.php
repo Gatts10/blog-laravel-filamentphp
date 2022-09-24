@@ -19,6 +19,7 @@ use Filament\Tables\Columns\BooleanColumn;
 use Filament\Forms\Components\DateTimePicker;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Resources\RelationManagers\RelationManager;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 
 class PostsRelationManager extends RelationManager
@@ -55,10 +56,13 @@ class PostsRelationManager extends RelationManager
     {
         return $table
             ->columns([
-                TextColumn::make('id')->sortable(),
-                TextColumn::make('title')->limit(50)->sortable(),
+                TextColumn::make('published_at')->date()->sortable(),
+                TextColumn::make('title')->limit(50)->sortable()->searchable(),
+                TextColumn::make('slug')->limit(50),
+                TextColumn::make('user.name')->label('Author')->limit(50),
+                SpatieMediaLibraryImageColumn::make('thumbnail')->collection('posts'),
                 BooleanColumn::make('is_published')
-            ])
+            ])->defaultSort('published_at', 'desc')
             ->filters([
                 //
             ])

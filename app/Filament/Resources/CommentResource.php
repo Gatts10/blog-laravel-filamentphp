@@ -38,11 +38,11 @@ class CommentResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('id')->sortable(),
+                TextColumn::make('created_at')->date()->sortable(),
                 TextColumn::make('post.title')->label('Post')->limit(50)->sortable()->searchable(),
                 TextColumn::make('name')->limit(50)->sortable()->searchable(),
                 TextColumn::make('email')->limit(50)->sortable()->searchable()
-            ])->defaultSort('id', 'desc')
+            ])->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])

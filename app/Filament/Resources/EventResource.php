@@ -55,11 +55,11 @@ class EventResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('id')->sortable(),
+                TextColumn::make('date')->date()->sortable()->searchable(),
                 TextColumn::make('name')->limit(50)->sortable()->searchable(),
                 TextColumn::make('slug')->limit(50),
-                TextColumn::make('date')->sortable()
-            ])->defaultSort('id', 'desc')
+
+            ])->defaultSort('date', 'desc')
             ->filters([
                 //
             ])

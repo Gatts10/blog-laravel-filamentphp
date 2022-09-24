@@ -30,11 +30,11 @@ class CommentsRelationManager extends RelationManager
     {
         return $table
             ->columns([
-                TextColumn::make('id')->sortable(),
-                TextColumn::make('post.title')->label('Post')->limit(50)->sortable(),
-                TextColumn::make('name')->limit(50)->sortable(),
-                TextColumn::make('email')->limit(50)->sortable()
-            ])->defaultSort('id', 'desc')
+                TextColumn::make('created_at')->date()->sortable(),
+                TextColumn::make('post.title')->label('Post')->limit(50)->sortable()->searchable(),
+                TextColumn::make('name')->limit(50)->sortable()->searchable(),
+                TextColumn::make('email')->limit(50)->sortable()->searchable()
+            ])->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])

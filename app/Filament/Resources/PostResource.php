@@ -70,13 +70,13 @@ class PostResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('id')->sortable(),
+                TextColumn::make('published_at')->date()->sortable(),
                 TextColumn::make('title')->limit(50)->sortable()->searchable(),
                 TextColumn::make('slug')->limit(50),
-                TextColumn::make('user.name')->label('Author')->limit(50),
+                TextColumn::make('user.name')->label('Author')->limit(50)->searchable(),
                 SpatieMediaLibraryImageColumn::make('thumbnail')->collection('posts'),
                 BooleanColumn::make('is_published')
-            ])->defaultSort('id', 'desc')
+            ])->defaultSort('published_at', 'desc')
             ->filters([
                 Filter::make('Published')
                     ->query(fn (Builder $query): Builder => $query->where('is_published', true)),

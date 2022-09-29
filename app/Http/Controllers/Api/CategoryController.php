@@ -16,7 +16,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::orderBy('name')->get();
+        $categories = Category::has('posts')->orderBy('name')->get();
 
         return response()->json(CategoryListResource::collection($categories));
     }

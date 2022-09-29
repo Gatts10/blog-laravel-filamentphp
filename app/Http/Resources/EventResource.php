@@ -26,7 +26,8 @@ class EventResource extends JsonResource
             'slug' => $this->slug,
             'date' => $this->date,
             'published_at' => $this->published_at->diffForHumans(),
-            'image' => $images
+            'thumbnail' => $this->getFirstMediaUrl('events'),
+            'images' => $images
         ];
     }
 }

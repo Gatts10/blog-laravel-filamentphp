@@ -20,14 +20,17 @@ class PostResource extends JsonResource
 
         return [
             'id' => $this->id,
+            'category_id' => $this->category_id,
             'category' => [
                 'name' => $this->category->name,
                 'slug' => $this->category->slug,
             ],
+            'event_id' => $this->event_id,
             'event' => [
                 'name' => $this->event->name ?? null,
                 'slug' => $this->event->slug ?? null,
             ],
+            'author_id' => $this->user_id,
             'author' => [
                 'name' => $this->user->name,
             ],
